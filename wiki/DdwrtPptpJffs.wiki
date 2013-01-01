@@ -1,0 +1,17 @@
+== Introduction ==
+
+這份說明描述在dd-wrt路由中，使用PPTP VPN，在jffs模式下的配置方法
+
+
+== Details ==
+
+命令：
+{{{
+$ cd /jffs
+$ wget http://autoddvpn-beta.googlecode.com/svn/trunk/cnips.list
+$ mkdir /jffs/pptp
+$ cd /jffs/pptp
+$ wget http://autoddvpn-beta.googlecode.com/svn/trunk/dd-wrt/pptp/run.sh
+$ for i in vpnup vpndown checkvpn; do wget http://autoddvpn-beta.googlecode.com/svn/trunk/dd-wrt/$i.sh
+$ chmod a+x *.sh
+}}}
