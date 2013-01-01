@@ -89,6 +89,10 @@ echo "$INFO $(date "+%d/%b/%Y:%H:%M:%S") vpnup" >> $IPTABLELOCK
 echo "$INFO $(date "+%d/%b/%Y:%H:%M:%S") adding the static routes, this may take a while." >> $LOG
 
 ##### begin batch route #####
+if [ ! -f $CNIPLIST ]; then
+	echo "$INFO $(date "+%d/%b/%Y:%H:%M:%S") missing $CNIPLIST, wget it now."  >> $LOG
+	wget http://autoddvpn-beta.googlecode.com/svn/trunk/cnips.list -O $CNIPLIST 
+fi
 for i in $(grep -v ^# $CNIPLIST)
 do
 route add -net $i gw $OLDGW
