@@ -8,7 +8,7 @@ LOCK='/tmp/autoddvpn.lock'
 IPTABLELOCK='/tmp/iptable.lock'
 CHECKVPNLOCK='/tmp/checkvpn.lock'
 PID=$$
-CNIPLIST='/jffs/cnips.list'
+CNIPLIST='/jffs/cnips.lst'
 EXROUTEDIR='/jffs/exroute.d'
 EXVPNROUTEDIR='/jffs/exvpnroute.d'
 INFO="[INFO#${PID}]"
@@ -88,16 +88,15 @@ echo "$INFO $(date "+%d/%b/%Y:%H:%M:%S") vpnup" >> $IPTABLELOCK
 
 echo "$INFO $(date "+%d/%b/%Y:%H:%M:%S") adding the static routes, this may take a while." >> $LOG
 
-##### begin batch route #####
+# add cn routes
 if [ ! -f $CNIPLIST ]; then
 	echo "$INFO $(date "+%d/%b/%Y:%H:%M:%S") missing $CNIPLIST, wget it now."  >> $LOG
-	wget http://autoddvpn-beta.googlecode.com/svn/trunk/cnips.list -O $CNIPLIST 
+	wget http://autoddvpn-beta.googlecode.com/svn/trunk/cnips.lst -O $CNIPLIST 
 fi
 for i in $(grep -v ^# $CNIPLIST)
 do
 route add -net $i gw $OLDGW
 done 
-##### end batch route #####
 
 # prepare for the exceptional routes, see http://code.google.com/p/autoddvpn/issues/detail?id=7
 echo "$INFO $(date "+%d/%b/%Y:%H:%M:%S") preparing the exceptional routes" >> $LOG
