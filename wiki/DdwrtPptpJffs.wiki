@@ -1,4 +1,4 @@
-#labels PPTP,DDWRT,dd-wrt,autoddvpn
+#labels PPTP,VPN,dd-wrt,autoddvpn
 == Introduction ==
 
 這份說明描述在dd-wrt路由中，使用PPTP VPN，在jffs模式下的配置方法
