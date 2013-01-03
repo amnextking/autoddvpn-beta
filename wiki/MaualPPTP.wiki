@@ -1,0 +1,50 @@
+#labels PPTP,dd-wrt
+== Introduction ==
+
+這份說明描述在dd-wrt路由中，手動連接PPTP VPN的配置方法
+
+
+== Details ==
+
+=== 安裝腳本 ===
+登入路由器，並執行以下命令：
+
+（注：以下命令假定「/jffs/pptp」目錄已經存在，並放置有相應腳本，否則請先按[DdwrtPptpJffs 此頁面]或[http://code.google.com/p/autoddvpn/wiki/jffs autoddvpn的說明描述]操作）
+
+{{{
+$ midir /jffs/pptp/manual
+$ cd /jffs/pptp/manual
+$ for i in options.vpn ip-up ip-down; do wget http://autoddvpn-beta.googlecode.com/svn/trunk/dev/manualpptp/$i
+$ chmod a+x ip-up ip-down
+}}}
+
+=== 修改 ===
+修改options.vpn檔案：
+{{{
+$ vi /jffs/pptp/manual/options.vpn
+}}}
+將「`<your_vpn_username>`」修改為您的VPN用戶名；「`<your_vpn_password>`」修改為您的VPN密碼
+<br />
+
+如果您未在web界面設置過VPN訊息，則還要在修改ip-up和ip-down檔案（如設置過可跳過，無論PPTP VPN服務是否開啓）：
+{{{
+$ vi /jffs/pptp/manual/ip-up
+}}}
+將「$(/usr/sbin/nvram get pptpd_client_srvsub)」修改為PPTP撥上之後的VPN子網路，「$(/usr/sbin/nvram get pptpd_client_srvsubmsk)」改為子網路遮罩（通常為「255.255.255.0」）。不會找的可參考[http://code.google.com/p/autoddvpn/issues/detail?id=17 此教學]
+{{{
+$ vi /jffs/pptp/manual/ip-down
+}}}
+同上
+
+=== 手動連接 ===
+先在路由器web頁面把PPTP關閉（或者執行「nvram set pptpd_client_enable=0; nvram commit」），並確保pptp沒有在運行（執行命令「/tmp/pptpd_client/vpn stop; killall -9 pptp」）
+
+手動連接PPTP VPN的命令：
+{{{
+$ pptp VPN伺服器IP位址 file /jffs/pptp/manual/options.vpn
+}}}
+例如：
+{{{
+$ pptp 74.125.128.103 file /jffs/pptp/manual/options.vpn
+}}}
+（上述例子中為虛構IP位址）
