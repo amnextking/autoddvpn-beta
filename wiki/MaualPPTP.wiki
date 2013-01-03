@@ -48,3 +48,5 @@ $ pptp VPN伺服器IP位址 file /jffs/pptp/manual/options.vpn
 $ pptp 74.125.128.103 file /jffs/pptp/manual/options.vpn
 }}}
 （上述例子中為虛構IP位址）
+
+*注意*：此命令pptp是在前台運行的（只為調試用），因此一旦中止進程或中斷ssh/telnet連接即會導致pptp連接中斷，後台手動運行PPTP的腳本會在稍後更新。
