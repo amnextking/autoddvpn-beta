@@ -1,0 +1,88 @@
+== Introduction ==
+
+這份說明描述在dd-wrt路由中，連接多個PPTP VPN，並根據速度（ping值）和連通性自動選擇、切換，目前仍為構想，但已經有了一些思路，會在這個wiki頁面持續更新。
+
+
+== Details ==
+
+=== 實現方法 ===
+==== 方案1 ====
+通過pptp程式同時建立多條VPN連接，每個相應的時間（如1min）ping一下所有的ppp連接網關，並將默認網關更改為ping值最小的
+
+*優點*：可以保障時時得到最佳網速。
+
+*缺點*：由於對外連接的IP位址頻繁更換，可能導致一些網路客戶端的不穩定（可以通過將IP位址加入custom_list自定義直連列表解決，但如果是被牆的服務就沒有辦法了）；而且由於可能在短時間內頻繁更換IP位址而被一些網站（如facebook）認為是不安全行為而暫停甚至封鎖帳號；另外就是這樣必須使用classicMode，因為頻繁更換網關的話如果是graceMode腳本執行量太大很不方便；又由於這樣需要對每個pptp連接同時進行守護（確保斷線後自動重連），而需要對多個pptp進程的pid進行辨別，導致實現的難度較大
+
+==== 方案2 ====
+不同時建立多條VPN連接，在最初連接時，ping一下所有VPN伺服器的IP位址，連接ping值最小的；待這個VPN斷線時，再次ping一下所有VPN伺服器的IP位址，連接ping值最小的；如此往復
+
+*優點*：可以保障對外連接線路始終通暢，有時受gfw干擾某個VPN暫時無法連接時能夠自動切換到其他可連接的VPN，而且只在斷線時才更換VPN，相對來說較為穩定些；而且不用打開多個pptp進程，不存在pid辨別問題，相對來說實現起來也較容易；另外還可以使用graceMode
+
+*缺點*：有些VPN伺服器會禁止WAN網路ping，而無法獲得ping值；由於只在VPN斷線後才再次測其他VPN速度並重新選擇、連接，因此不一定能保障時時得到最佳網速
+
+== 需要解決的問題 ==
+（發現新的問題時會更新）
+
+1.PPTP VPN必須手動連接及自動重連：因為dd-wrt的自動連接腳本/etc/config/pptpd_client.vpn沒有這個功能
+
+2.多個VPN配置檔案的管理問題：存放在jffs中還是nvram中？調配時使用循環還是數組？（不知道sh是否支持數組）
+
+3.pptp程式最多可以同時開多少個：已測試可以開同時開2個，但能否同時開更多呢？
+
+4.多個pptp程式的pid辨別問題：用於確保每個VPN斷線後都能自動重連
+
+6.是否需要重新編譯並調試pptp程式：有可能一些人遇到的dd-wrt上的PPTP VPN連接（相比電腦）不穩定、頻繁掉線是dd-wrt上的pptp二進制程式本身就存在問題，那麼可能要重新編譯並調試pptp程式了
+
+== 進度 ==
+
+=== 已解決 ===
+（暫無）
+
+=== 解決中 ===
+==== PPTP VPN的手動連接及自動重連問題 ====
+手動連接已經解決，參見[MaualPPTP]，但目前只是前台運行，用&或nohup應該可以後台運行，但尚未測試，還有目前斷線後還無法自動重連，正在寫自動重連的腳本
+
+=== 尚未解決 ===
+2.多個VPN配置檔案的管理問題
+
+3.pptp程式最多可以同時開多少個
+
+4.多個pptp程式的pid辨別問題
+
+== Materials ==
+以下列一些可能會用到的資料
+
+=== pptp程式 ===
+pptp客戶端程式：/usr/sbin/pptp
+
+dd-wrt自帶的pptp連接腳本：/etc/config/pptpd_client.vpn（或/tmp/pptpd_client/vpn）
+
+=== pid相關 ===
+==== pidof命令 ====
+用法：
+{{{
+pidof [-o omitpid] [-s] [-x script] program
+}}}
+
+*參數*：-o omitpid
+
+在列出的進程PID中忽略omitpid，可以有多個。
+
+*參數*：-s program
+
+只列出一個。
+
+*參數*：-x script
+
+找出shell腳本script的進程PID。
+
+==== ps命令 ====
+列出當前所有運行進程及其PID
+
+=== /dev/null ===
+丟棄輸出
+
+=== PPTP客戶端 ===
+PPTP Client項目主頁（on SourceForge）：http://pptpclient.sourceforge.net/
+
+原始碼：http://sourceforge.net/projects/pptpclient/files/
