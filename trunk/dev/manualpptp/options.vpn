@@ -1,0 +1,18 @@
+defaultroute
+lock
+noauth
+nodetach
+refuse-eap
+lcp-echo-failure 3
+lcp-echo-interval 2
+persist
+usepeerdns
+idle 0
+ip-up-script /jffs/pptp/manual/ip-up
+ip-down-script /jffs/pptp/manual/ip-down
+ipparam kelokepptpd
+mppe required,no40,no56,stateless
+mtu 1450
+mru 1450
+name <your_vpn_username>
+password <your_vpn_password>
