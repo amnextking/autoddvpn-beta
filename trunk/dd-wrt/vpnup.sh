@@ -214,6 +214,10 @@ if [ -f $CHECKVPNLOCK ]; then
     echo "$DEBUG checkvpn program is running in background"
 else
     echo "$INFO $(date "+%d/%b/%Y:%H:%M:%S") checkvpn running" >> $CHECKVPNLOCK
-    echo "$INFO $(date "+%d/%b/%Y:%H:%M:%S") run checkvpn program in background" >> $LOG
-    nohup /jffs/pptp/checkvpn.sh > /dev/null &
+    if [ -f '/jffs/pptp/checkvpn.sh' ]; then
+        echo "$INFO $(date "+%d/%b/%Y:%H:%M:%S") run checkvpn program in background" >> $LOG
+        nohup /jffs/pptp/checkvpn.sh > /dev/null &
+    else
+        echo "$ERROR $(date "+%d/%b/%Y:%H:%M:%S") checkvpn program not found" >> $LOG
+    fi
 fi
