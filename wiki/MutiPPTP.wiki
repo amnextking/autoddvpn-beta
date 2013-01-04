@@ -48,8 +48,11 @@ nvram容量有限，而我們可能需要存儲很多VPN訊息，因此用jffs�
 在/jffs/pptp下建立configs目錄，內放置多個目錄，分別對應各個vpn（如「vpn1」、「vpn2」⋯⋯，也可是其他有個性的名字），每個目錄下放置如下文件：
 
 options.vpn：VPN基本配置文件
+
 ipaddress.conf：伺服器IP位址
+
 vpnsrvsub.conf：PPTP撥上之後的VPN子網路
+
 vpnsrvsubmsk.conf：子網路遮罩
 
 而VPN的名字列表則可以存儲在nvram中（如「nvram set pptp_list='vpn1 vpn2 vpn3'」）
