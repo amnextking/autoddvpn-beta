@@ -16,4 +16,5 @@ case "$6" in
  *)
 esac   
 /jffs/pptp/vpndown.sh pptp
+nohup /jffs/pptp/manual/reconnect.sh > /dev/null &
 exit 0 
