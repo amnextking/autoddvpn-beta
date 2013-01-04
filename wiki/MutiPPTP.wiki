@@ -41,7 +41,7 @@
 
 ==== 解決中 ====
 ===== PPTP VPN的手動連接及自動重連問題 =====
-手動連接已經解決，參見[ManualPPTP]，~~但目前只是前台運行，用&或nohup應該可以後台運行，但尚未測試，~~後台運行也已經解決，還有目前斷線後還無法自動重連，正在寫自動重連的腳本
+手動連接已經解決，參見[ManualPPTP]，~~但目前只是前台運行，用&或nohup應該可以後台運行，但尚未測試，~~後台運行也[ManualPPTP#%E5%BE%8C%E5%8F%B0%E9%81%8B%E8%A1%8C 已經解決]，還有目前斷線後還無法自動重連，正在寫自動重連的腳本
 
 ==== 尚未解決 ====
 2.多個VPN配置檔案的管理問題
@@ -85,6 +85,6 @@ pidof [-o omitpid] [-s] [-x script] program
 丟棄輸出
 
 === PPTP客戶端 ===
-PPTP Client項目主頁（on SourceForge）：http://pptpclient.sourceforge.net/
+PPTP Client項目主頁（on `SourceForge`）：http://pptpclient.sourceforge.net/
 
 原始碼：http://sourceforge.net/projects/pptpclient/files/
