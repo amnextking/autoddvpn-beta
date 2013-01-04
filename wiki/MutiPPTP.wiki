@@ -45,17 +45,34 @@ nvram容量有限，而我們可能需要存儲很多VPN訊息，因此用jffs�
 
 初步構想如下：
 
-在/jffs/pptp下建立configs目錄，內放置多個目錄，分別對應各個vpn（如「vpn1」、「vpn2」⋯⋯，也可是其他有個性的名字），每個目錄下放置如下文件：
+在/jffs/pptp下建立configs目錄，內放置多個目錄，分別對應各個vpn（如「vpn1」、「vpn2」⋯⋯，也可是其他有個性的名字），每個目錄下放置如下檔案：
 
-options.vpn：VPN基本配置文件
+options.vpn：VPN基本配置檔案
 
 ipaddress.conf：伺服器IP位址
+
+domainname.conf：以域名形式存儲VPN伺服器，使用時現解析出IP位址（腳本見下）
 
 vpnsrvsub.conf：PPTP撥上之後的VPN子網路
 
 vpnsrvsubmsk.conf：子網路遮罩
 
 而VPN的名字列表則可以存儲在nvram中（如「nvram set pptp_list='vpn1 vpn2 vpn3'」）
+
+*從domainname.conf檔案的域名解析出IP位址並存入ipaddress.conf檔案的腳本*：
+
+_（假定在配置檔案在/jffs/pptp/vpn1目錄下）_
+
+{{{
+rm -f /jffs/pptp/vpn1/ipaddress.conf
+echo $(ping -w 1 -c 1 $(cat /jffs/pptp/vpn1/domainname.conf) | grep -Eo "\(([0-9.]+)" | cut -d\( -f 2) >> /jffs/pptp/vpn1/ipaddress.conf
+if [ $(cat /jffs/pptp/vpn1/ipaddress.conf) == $(ping -w 1 -c 1 domainnotexists | grep -Eo "\(([0-9.]+)" | cut -d\( -f 2) ]; then
+  rm -f /jffs/pptp/vpn1/ipaddress.conf
+  echo "Can't resolve the ip address from domainname.conf"
+else
+  echo "Resolved the ip address from domainname.conf and saved it to ipaddress.conf"
+fi
+}}}
 
 ==== 尚未解決 ====
 3.pptp程式最多可以同時開多少個
