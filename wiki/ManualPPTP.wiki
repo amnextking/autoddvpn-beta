@@ -9,7 +9,7 @@
 === 安裝腳本 ===
 登入路由器，並執行以下命令：
 
-（注：以下命令假定「/jffs/pptp」目錄已經存在，並放置有相應腳本，否則請先按[DdwrtPptpJffs 此頁面]或[http://code.google.com/p/autoddvpn/wiki/jffs autoddvpn的說明描述]操作）
+_（注：以下命令假定「/jffs/pptp」目錄已經存在，並放置有相應腳本，否則請先按[DdwrtPptpJffs 此頁面]或[http://code.google.com/p/autoddvpn/wiki/jffs autoddvpn的說明描述]操作）_
 
 {{{
 $ midir /jffs/pptp/manual
@@ -47,6 +47,6 @@ $ pptp VPN伺服器IP位址 file /jffs/pptp/manual/options.vpn
 {{{
 $ pptp 74.125.128.103 file /jffs/pptp/manual/options.vpn
 }}}
-（上述例子中為虛構IP位址）
+_（上述例子中為虛構IP位址）_
 
-*注意*：此命令pptp是在前台運行的（只為調試用），因此一旦中止進程或中斷ssh/telnet連接即會導致pptp連接中斷，後台手動運行PPTP的腳本會在稍後更新。
+_*注意*：此命令pptp是在前台運行的（只為調試用），因此一旦中止進程或中斷ssh/telnet連接即會導致pptp連接中斷，後台手動運行PPTP的腳本會在稍後更新。_
