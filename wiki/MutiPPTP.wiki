@@ -100,3 +100,24 @@ pidof [-o omitpid] [-s] [-x script] program
 PPTP Client項目主頁（on `SourceForge`）：http://pptpclient.sourceforge.net/
 
 原始碼：http://sourceforge.net/projects/pptpclient/files/
+
+=== 獲取ping值 ===
+==== get time ====
+命令：
+{{{
+echo $(ping -w 1 -c 1 <ipaddress_or_domain> | grep -Eo "time=([0-9.]+)" | cut -d= -f2)
+}}}
+例：
+{{{
+echo $(ping -w 1 -c 1 127.0.0.1 | grep -Eo "time=([0-9.]+)" | cut -d= -f2)
+}}}
+
+==== get ip ====
+命令：
+{{{
+echo $(ping -w 1 -c 1 <domain_name> | grep -Eo "from ([0-9.]+)" | cut -d\  -f 2)
+}}}
+例：
+{{{
+echo $(ping -w 1 -c 1 www.google.com | grep -Eo "from ([0-9.]+)" | cut -d\  -f 2)
+}}}
