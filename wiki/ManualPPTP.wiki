@@ -60,3 +60,17 @@ $ pptp VPN伺服器IP位址 file /jffs/pptp/manual/options.vpn &
 {{{
 $ kill `pidof -s pptp`; sleep 2; kill -9 `pidof -s pptp`
 }}}
+
+==== 自動重連 ====
+下載重連程式reconnect.sh至manual目錄，並將pptp目錄下的checkvpn.sh替換為手動連接的VPN檢查腳本，即可實現VPN斷線後自動重連。
+
+命令：
+{{{
+$ cd /jffs/pptp/manual
+$ wget http://autoddvpn-beta.googlecode.com/svn/trunk/dev/manualpptp/reconnect.sh
+$ chmod a+x reconnect.sh
+$ cd /jffs/pptp
+$ rm -f /jffs/pptp/checkvpn.sh
+$ wget http://autoddvpn-beta.googlecode.com/svn/trunk/dev/manualpptp/checkvpn.sh
+$ chmod a+x checkvpn.sh
+}}}
