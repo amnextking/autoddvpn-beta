@@ -1,6 +1,6 @@
 #!/bin/sh
-REMOTESUB=$(/usr/sbin/nvram get pptpd_client_srvsub)
-REMOTENET=$(/usr/sbin/nvram get pptpd_client_srvsubmsk)
+REMOTESUB=$(nvram get pptpd_client_srvsub)
+REMOTENET=$(nvram get pptpd_client_srvsubmsk)
 case "$6" in
  kelokepptpd)
   /sbin/route add -net $REMOTESUB netmask $REMOTENET dev $1
