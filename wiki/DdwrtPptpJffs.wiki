@@ -9,7 +9,7 @@
 命令：
 {{{
 $ cd /jffs
-$ wget http://autoddvpn-beta.googlecode.com/svn/trunk/cnips.list
+$ wget http://autoddvpn-beta.googlecode.com/svn/trunk/cnips.lst
 $ mkdir /jffs/pptp
 $ cd /jffs/pptp
 $ wget http://autoddvpn-beta.googlecode.com/svn/trunk/dd-wrt/pptp/run.sh
