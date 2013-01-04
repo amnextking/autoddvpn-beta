@@ -12,9 +12,9 @@
 _（注：以下命令假定「/jffs/pptp」目錄已經存在，並放置有相應腳本，否則請先按[DdwrtPptpJffs 此頁面]或[http://code.google.com/p/autoddvpn/wiki/jffs autoddvpn的說明描述]操作）_
 
 {{{
-$ midir /jffs/pptp/manual
+$ mkdir /jffs/pptp/manual
 $ cd /jffs/pptp/manual
-$ for i in options.vpn ip-up ip-down; do wget http://autoddvpn-beta.googlecode.com/svn/trunk/dev/manualpptp/$i
+$ for i in options.vpn ip-up ip-down; do wget http://autoddvpn-beta.googlecode.com/svn/trunk/dev/manualpptp/$i;done;
 $ chmod a+x ip-up ip-down
 }}}
 
