@@ -13,6 +13,6 @@ $ wget http://autoddvpn-beta.googlecode.com/svn/trunk/cnips.lst
 $ mkdir /jffs/pptp
 $ cd /jffs/pptp
 $ wget http://autoddvpn-beta.googlecode.com/svn/trunk/dd-wrt/pptp/run.sh
-$ for i in vpnup vpndown checkvpn; do wget http://autoddvpn-beta.googlecode.com/svn/trunk/dd-wrt/$i.sh
+$ for i in vpnup vpndown checkvpn; do wget http://autoddvpn-beta.googlecode.com/svn/trunk/dd-wrt/$i.sh;done;
 $ chmod a+x *.sh
 }}}
