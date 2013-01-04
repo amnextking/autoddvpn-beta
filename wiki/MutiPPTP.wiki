@@ -115,9 +115,9 @@ echo $(ping -w 1 -c 1 127.0.0.1 | grep -Eo "time=([0-9.]+)" | cut -d= -f2)
 ==== get ip ====
 命令：
 {{{
-echo $(ping -w 1 -c 1 <domain_name> | grep -Eo "from ([0-9.]+)" | cut -d\  -f 2)
+echo $(ping -w 1 -c 1 <domain_name> | grep -Eo "\(([0-9.]+)" | cut -d\( -f 2)
 }}}
 例：
 {{{
-echo $(ping -w 1 -c 1 www.google.com | grep -Eo "from ([0-9.]+)" | cut -d\  -f 2)
+echo $(ping -w 1 -c 1 www.google.com | grep -Eo "\(([0-9.]+)" | cut -d\( -f 2)
 }}}
