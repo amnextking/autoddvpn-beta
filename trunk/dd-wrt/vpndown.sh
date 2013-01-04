@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# This script is modified by Shujenchang from http://autoddvpn.googlecode.com/svn/trunk/vpndown.sh
+
 set -x
 export PATH="/bin:/sbin:/usr/sbin:/usr/bin"
 
