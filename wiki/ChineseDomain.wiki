@@ -9,7 +9,7 @@
 經過測試，Google DNS和Open DNS均無法對中文域名進行解析，Google DNS會直接返回NXDOMAIN，而OpenDNS則會返回解析錯誤的頁面。
 
 === 解決方案 ===
-目前只能使用支持解析中文域名的DNS伺服器來進行解析，比如北京聯通的DNS伺服器202.106.196.115，需要在DNSmasq中添加如下配置：
+目前只能使用支持解析中文域名的DNS伺服器來進行解析，比如北京聯通的DNS伺服器202.106.196.115，需要在DNSmasq中添加如下配置（此設置已被添加至cncdn.conf）：
 {{{
 #Chinese_domains
 server=/xn--fiqs8s/202.106.196.115
