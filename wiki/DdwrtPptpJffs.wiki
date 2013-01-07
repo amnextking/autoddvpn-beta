@@ -77,7 +77,7 @@ _如果您有興趣想要詳細了解GFW的DNS緩存污染，可以看看[GfwDns
 如果您遇到問題但無法判定確定哪里出現了問題，可以[http://code.google.com/p/autoddvpn-beta/issues/entry 在此提交issue]並附上相應的日誌和一些您認為可能會有用的額外訊息。
 
 === 進階 ===
-由於設置了Open DNS或Google DNS，雖然避免了DNS劫持，但是可能會影響國內一些網站的CDN加速，可以通過設置DNSmasq來使國內一些常用網站的域名解析走本地ISP DNS，具體請參考[DNSmasq 這篇說明]。
+由於設置了Open DNS或Google DNS，雖然避免了DNS劫持，但是可能會影響國內一些網站的CDN加速，可以通過設置DNSmasq來使國內一些常用網站的域名解析走本地ISP DNS，還可解決[ChineseDomain 一些中文域名無法解析的問題]，具體請參考[DNSmasq 這篇說明]。
 
 此外，您還可以選擇手動連接PPTP VPN，這樣可以解決某些dd-wrt版本的默認PPTP配置檔案存在問題，以及加入一些進階參數等。這個功能正在開發中，如有興趣請參看[ManualPPTPDev 此檔案]。
 
