@@ -1,7 +1,11 @@
 #labels PPTP,VPN,dd-wrt
+= Developing =
+<font size=3>*注意*：這是一份開發中的檔案，描述一個開發中的功能，而非正式的HOWTO檔案，僅供開發者調試用。檔案中可能包含一些調試信息和專業性內容，檔案中提到的程式和腳本也可能仍不完善。開發完成後會發佈正式的HOWTO檔案。</font>
+<br /><br />
+
 == Introduction ==
 
-這份說明描述在dd-wrt路由中，手動連接PPTP VPN的配置方法
+這份說明描述在dd-wrt路由中手動連接PPTP VPN
 
 
 == Details ==
