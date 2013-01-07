@@ -4,7 +4,7 @@
 
 == Introduction ==
 
-這份說明關於gfw的DNS緩存投毒汙染
+這份說明關於gfw的DNS緩存投毒污染
 
 
 == Details ==
