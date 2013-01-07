@@ -1,0 +1,16 @@
+mtu 1460
+mru 1460
+defaultroute
+usepeerdns
+user "<your_vpn_username>"
+password "<your_vpn_password>"
+nopcomp
+refuse-eap
+noaccomp
+noccp
+novj
+nobsdcomp
+nodeflate
+lcp-echo-interval 0
+lock
+noauth
