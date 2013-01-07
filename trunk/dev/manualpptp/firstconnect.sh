@@ -22,7 +22,7 @@ fi
 echo "$INFO $(date "+%d/%b/%Y:%H:%M:%S") vpnsrvsub.conf and vpnsrvsubmsk.conf found, setting nvram..." >> $VPNLOG
 nvram set pptpd_client_srvsub="$(cat /jffs/pptp/manual/vpnsrvsub.conf)"
 nvram set pptpd_client_srvsubmsk="$(cat /jffs/pptp/manual/vpnsrvsubmsk.conf)"
-nvram need_commit=1
+nvram commit
 
 # Resolve VPN IP address
 if [ -f /jffs/pptp/manual/domainname.conf ]; then
