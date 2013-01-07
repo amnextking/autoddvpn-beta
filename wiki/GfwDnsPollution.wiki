@@ -1,3 +1,7 @@
+#labels articles
+<font size=3>*注意*：這篇文章仍在撰寫中。</font>
+<br />
+
 == Introduction ==
 
 這份說明關於gfw的DNS緩存投毒汙染
