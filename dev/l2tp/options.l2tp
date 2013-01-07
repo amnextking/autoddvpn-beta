@@ -2,6 +2,8 @@ mtu 1460
 mru 1460
 defaultroute
 usepeerdns
+#ip-up-script /jffs/l2tp/vpnup.sh
+#ip-down-script /jffs/l2tp/vpndown.sh
 user "<your_vpn_username>"
 password "<your_vpn_password>"
 nopcomp
