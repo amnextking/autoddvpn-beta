@@ -178,23 +178,23 @@ echo "$INFO $(date "+%d/%b/%Y:%H:%M:%S") exceptional VPN routes disabled, skip."
 fi
 
 # final check again
-echo "$INFO final check the default gw"
-for i in 1 2 3 4 5 6
-do
-  GW=$(route -n | grep ^0.0.0.0 | awk '{print $2}')
-  echo "$DEBUG my current gw is $GW"
-  #route | grep ^default | awk '{print $2}'
-  if [ "$GW" == "$OLDGW" ]; then
-    echo "$DEBUG still got the OLDGW, why?"
-    echo "$INFO delete default gw $OLDGW"
-    route del default gw $OLDGW
-    echo "$INFO add default gw $VPNGW again"
-    route add default gw $VPNGW
-    sleep 3
-  else
-    break
-  fi
-done
+#echo "$INFO final check the default gw"
+#for i in 1 2 3 4 5 6
+#do
+#  GW=$(route -n | grep ^0.0.0.0 | awk '{print $2}')
+#  echo "$DEBUG my current gw is $GW"
+##  route | grep ^default | awk '{print $2}'
+#  if [ "$GW" == "$OLDGW" ]; then
+#    echo "$DEBUG still got the OLDGW, why?"
+#    echo "$INFO delete default gw $OLDGW"
+#    route del default gw $OLDGW
+#    echo "$INFO add default gw $VPNGW again"
+#    route add default gw $VPNGW
+#    sleep 3
+#  else
+#    break
+#  fi
+#done
 GW=$(route -n | grep ^0.0.0.0 | awk '{print $2}')
 if [ "$GW" == "$OLDGW" ]; then
   echo "$ERROR $(date "+%d/%b/%Y:%H:%M:%S") still got the old gw, it may because vpn was disconnected." >> $LOG
