@@ -41,3 +41,12 @@ $ ipkg-opt install py26-openssl
 {{{
 ipkg-opt install py26-twisted
 }}}
+
+== References ==
+  # [http://www.dd-wrt.com/wiki/index.php/USB_storage USB storage - DD-WRT Wiki]
+  # [http://www.dd-wrt.com/wiki/index.php/Optware Optware - DD-WRT Wiki]
+  # [http://ipkg.nslu2-linux.org/feeds/optware/ddwrt/cross/stable/ Index of /feeds/optware/ddwrt/cross/stable/]
+  # [http://www.right.com.cn/forum/thread-42186-1-1.html DD-WRT掛U盤，裝lighttpd+php+SQLite建路由站 - DD-WRT專版 - 恩山WIFI論壇]
+  # [https://oogami.name/941/ DD Wrt 路由器級VPN翻牆方案 « 小野大神 Blog]
+  # [http://bbs.dualwan.cn/viewthread.php?tid=229261 Dualwan路由器使用goagent高速自動爬長城簡明教程 - 交流討論區 - Tomato DualWAN 論壇]
+  # [http://www.yonsm.net/post/645 在 3.5MB 超小空閒空間的路由器上部署 Python + GoAgent（以Tomato DualWAN WR500V 為例） - Yonsm.NET]
