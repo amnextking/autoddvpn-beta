@@ -26,6 +26,10 @@ $ chmod a+x *.sh
 {{{
 $ nvram set rc_startup='/jffs/pptp/run.sh'
 $ nvram commit
+# 或者執行通過下面的命令用Script Execution來實現自啓動也可以：
+$ mkdir /jffs/etc
+$ /jffs/etc/config
+$ mv /jffs/pptp/run.sh /jffs/etc/config/autoddvpn.startup
 }}}
   # 重啓路由：
 {{{
