@@ -27,7 +27,7 @@ sh optware-install.sh
 {{{
 $ ipkg-opt install busybox
 }}}
-*Python *：
+*Python 2.6 *：
 {{{
 $ ipkg-opt install python26
 $ ln -s /opt/bin/python2.6 /opt/bin/python
@@ -37,9 +37,53 @@ $ ln -s /opt/bin/python2.6 /opt/bin/python
 $ ipkg-opt install openssl
 $ ipkg-opt install py26-openssl
 }}}
-*Twisted* ：
+*SVN* ：
 {{{
-ipkg-opt install py26-twisted
+$ ipkg-opt install svn
+}}}
+*Twisted* （可選，如需使用[http://code.google.com/p/pwx-dns-proxy/ pwx-dns-proxy]則需安裝）：
+{{{
+$ ipkg-opt install py26-twisted
+}}}
+
+*Lighttpd* （可選）：
+{{{
+$ ipkg-opt install lighttpd
+}}}
+安裝完成後需要對lighttpd.conf進行修改，否則lighttpd會無法啓動^[5]^：
+{{{
+$ /opt/etc/lighttpd/lighttpd.conf
+}}}
+找到「`# server.event-handler = "freebsd-kqueue" # needed on OS X`」修改為「`server.event-handler = "poll"`」
+
+另外S80lighttpd最好也修改一下，將日誌弄到內存裡面，這樣有助於減少U盤/移動硬盤的讀寫，保護設備：
+{{{
+vi /opt/etc/init.d/S80lighttpd
+}}}
+找到「`    start)`」這行，在下面加入以下代碼：
+{{{
+        echo "Starting web server: $NAME"
+        if [ ! -d /tmp/lighttpd ]; then
+                mkdir /tmp/lighttpd
+                mkdir /tmp/lighttpd/log
+                rm -rf /opt/var/log/lighttpd
+                ln -s /tmp/lighttpd/log /opt/var/log/lighttpd
+        fi
+}}}
+之後重啓lighttpd即可：
+{{{
+$ /opt/etc/init.d/S80lighttpd restart
+}}}
+
+*PHP和GD庫* （可選，需要Lighttpd）：
+{{{
+$ ipkg-opt install php php-fcgi
+$ ipkg-opt install php-gd
+}}}
+
+*SQLite* （可選）：
+{{{
+$ ipkg-opt install sqlite
 }}}
 
 == References ==
@@ -47,6 +91,7 @@ ipkg-opt install py26-twisted
   # [http://www.dd-wrt.com/wiki/index.php/Optware Optware - DD-WRT Wiki]
   # [http://ipkg.nslu2-linux.org/feeds/optware/ddwrt/cross/stable/ Index of /feeds/optware/ddwrt/cross/stable/]
   # [http://www.right.com.cn/forum/thread-42186-1-1.html DD-WRT掛U盤，裝lighttpd+php+SQLite建路由站 - DD-WRT專版 - 恩山WIFI論壇]
+  # [http://www.mattgibson.ca/2009/11/05/fix-dd-wrt-lighttpd-error-server-c-1105-fdevent_init-failed-on-asus-wl-500/ Fix DD-WRT Lighttpd error "(server.c.1105) fdevent_init failed" on Asus WL-500 | Matt Gibson]
   # [https://oogami.name/941/ DD Wrt 路由器級VPN翻牆方案 « 小野大神 Blog]
   # [http://bbs.dualwan.cn/viewthread.php?tid=229261 Dualwan路由器使用goagent高速自動爬長城簡明教程 - 交流討論區 - Tomato DualWAN 論壇]
   # [http://www.yonsm.net/post/645 在 3.5MB 超小空閒空間的路由器上部署 Python + GoAgent（以Tomato DualWAN WR500V 為例） - Yonsm.NET]
