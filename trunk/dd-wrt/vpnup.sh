@@ -8,7 +8,6 @@ export PATH="/bin:/sbin:/usr/sbin:/usr/bin"
 LOG='/tmp/autoddvpn.log'
 LOCK='/tmp/autoddvpn.lock'
 IPTABLELOCK='/tmp/iptable.lock'
-CHECKVPNLOCK='/tmp/checkvpn.lock'
 PID=$$
 CNIPLIST='/jffs/cnips.lst'
 EXROUTEDIR='/jffs/exroute.d'
@@ -16,6 +15,7 @@ EXVPNROUTEDIR='/jffs/exvpnroute.d'
 INFO="[INFO#${PID}]"
 DEBUG="[DEBUG#${PID}]"
 ERROR="[ERROR#${PID}]"
+CKVPNPIDFILE="/var/run/checkvpn.pid"
 
 echo "$INFO $(date "+%d/%b/%Y:%H:%M:%S") vpnup.sh started" >> $LOG
 for i in 1 2 3 4 5 6
@@ -212,10 +212,9 @@ fi
 rm -f $LOCK
 
 # run checkvpn
-if [ -f $CHECKVPNLOCK ]; then
+if [ -f "${CKVPNPIDFILE}" ]; then
     echo "$DEBUG checkvpn program is running in background"
 else
-    echo "$INFO $(date "+%d/%b/%Y:%H:%M:%S") checkvpn running" >> $CHECKVPNLOCK
     if [ -f '/jffs/pptp/checkvpn.sh' ]; then
         echo "$INFO $(date "+%d/%b/%Y:%H:%M:%S") run checkvpn program in background" >> $LOG
         nohup /jffs/pptp/checkvpn.sh > /dev/null &
