@@ -12,5 +12,5 @@ sleep 2
 kill -9 $PPTPPID
 sleep 2
 echo "$INFO $(date "+%d/%b/%Y:%H:%M:%S") trying to reconnect to PPTP server" >> $VPNLOG
-pptp $(cat /jffs/pptp/manual/ipaddress.conf) file /jffs/pptp/manual/options.vpn &
+pptp `cat /jffs/pptp/manual/ipaddress.conf` file /jffs/pptp/manual/options.vpn &
 exit 0
