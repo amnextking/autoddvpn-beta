@@ -1,0 +1,43 @@
+== Introduction ==
+
+這份說明描述在dd-wrt、Tomato和openwrt中如何開啓optware支持，以及安裝一些常用的optware組件的配置方法。
+
+
+== Details ==
+=== 掛載/opt分區 ===
+
+=== 安裝ipkg-opt ===
+透過ssh或telnet登入路由器後，根據下面的每種路由器的相應命令操作：
+
+*dd-wrt路由器*：
+{{{
+$ wget http://autoddvpn-beta.googlecode.com/svn/trunk/tools/optware/optware-install-ddwrt.sh -O - | tr -d '\r' > /tmp/optware-install.sh
+$ sh /tmp/optware-install.sh
+}}}
+
+*Tomato路由器*：
+{{{
+cd /opt
+wget http://autoddvpn-beta.googlecode.com/svn/trunk/tools/optware/optware-install-tomato.sh -O - | tr -d '\r' > optware-install.sh
+sh optware-install.sh
+}}}
+
+=== 安裝常用的一些optware組件 ===
+*`BusyBox`* ：
+{{{
+$ ipkg-opt install busybox
+}}}
+*Python *：
+{{{
+$ ipkg-opt install python26
+$ ln -s /opt/bin/python2.6 /opt/bin/python
+}}}
+*OpenSSL* ：
+{{{
+$ ipkg-opt install openssl
+$ ipkg-opt install py26-openssl
+}}}
+*Twisted* ：
+{{{
+ipkg-opt install py26-twisted
+}}}
