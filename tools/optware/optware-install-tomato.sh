@@ -1,5 +1,5 @@
 #!/bin/sh
-# This script was download from http://bbs.dualwan.cn/downloads/optware-install.sh
+# This script was downloaded from http://bbs.dualwan.cn/downloads/optware-install.sh
 # Optware pre-installation script, Leon Kos 2006
 
 REPOSITORY=http://ipkg.nslu2-linux.org/feeds/optware/ddwrt/cross/stable
