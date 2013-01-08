@@ -6,8 +6,15 @@ PID=$$
 INFO="[INFO#${PID}]"
 DEBUG="[DEBUG#${PID}]"
 ERROR="[ERROR#${PID}]"
+CKPIDFILE="/var/run/checkvpn.pid"
+
+# create PID file
+echo -n ${PID} > "${CKPIDFILE}"
+
+# get WAN gateway
 WANGW=$(nvram get wan_gateway)
 
+# starting checking
 while [ 1 ]
 do
     for i in 1 2 3 4 5
