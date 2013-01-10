@@ -42,12 +42,12 @@ $ ipkg-opt install py26-openssl
 $ ipkg-opt install svn
 }}}
 
-*Python 2.6 setup tools* （可選，如需編譯Gevent則需安裝）^[9]^：
+*Python 2.6 setup tools* （可選，如需編譯Gevent則需安裝）^[7]^：
 {{{
 $ ipkg-opt install py26-setuptools
 }}}
 
-*編譯工具* （可選，如需編譯Gevent或其他程式則需安裝）^[9]^：
+*編譯工具* （可選，如需編譯Gevent或其他程式則需安裝）^[7]^：
 {{{
 $ ipkg-opt install buildroot
 $ ipkg-opt install make
@@ -106,6 +106,4 @@ $ ipkg-opt install sqlite
   # [http://www.right.com.cn/forum/thread-42186-1-1.html DD-WRT掛U盤，裝lighttpd+php+SQLite建路由站 - DD-WRT專版 - 恩山WIFI論壇]
   # [http://www.mattgibson.ca/2009/11/05/fix-dd-wrt-lighttpd-error-server-c-1105-fdevent_init-failed-on-asus-wl-500/ Fix DD-WRT Lighttpd error "(server.c.1105) fdevent_init failed" on Asus WL-500 | Matt Gibson]
   # [https://oogami.name/941/ DD Wrt 路由器級VPN翻牆方案 « 小野大神 Blog]
-  # [http://bbs.dualwan.cn/viewthread.php?tid=229261 Dualwan路由器使用goagent高速自動爬長城簡明教程 - 交流討論區 - Tomato DualWAN 論壇]
-  # [http://www.yonsm.net/post/645 在 3.5MB 超小空閒空間的路由器上部署 Python + GoAgent（以Tomato DualWAN WR500V 為例） - Yonsm.NET]
   # [https://maskv.com/technology/192.html Tomato中編譯安裝Gevent | MaskV]
