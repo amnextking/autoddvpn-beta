@@ -1,3 +1,4 @@
+#labels GoAgent
 == Introduction ==
 
 這份說明描述在dd-wrt、Tomato、Openwrt路由器中配置`GoAgent`實現翻牆
@@ -11,6 +12,8 @@
 在按照此說明配置路由器客戶端之前，應確保在GAE上已經有配置好的伺服器端，GAE伺服器端的配置方法可參考[http://code.google.com/p/goagent/wiki/InstallGuide 官方說明]。另請注意教程中的2.0.14版本的客戶端未必能夠向上兼容最新版本的官方伺服器端，所以我準備了一個已經確認可以兼容這個版本的2.0.12版本的伺服器端，可以在[http://code.google.com/p/autoddvpn-beta/downloads/detail?name=goagent-server-2.0.12.tar.gz 這裡]下載。
 
 如果使用google_cn profile配置`GoAgent`客戶端的話，此方法和VPN並不衝突，可同時使用，`GoAgent`將作為一個備選方案，在VPN連不上時或需要高帶寬（如觀看Youtube視頻）時使用。
+
+*需要注意的是*：`GoAgent`安全性很低，而且在路由器中運行佔用的資源也較大，因此極其不推薦當作*首選*的翻牆方式！
 
 === 安裝 ===
 透過ssh或telnet登入路由器後，執行如下指令：
@@ -46,6 +49,7 @@ $ tail -f /tmp/goagent.log
 
 === 進階 ===
 *添加更多證書* ：
+
 經過測試發現，在dd-wrt上運行`GoAgent`透過SSL方式訪問網站時，如果cert目錄內沒有相應的證書，新生成證書很慢，而且容易出錯，所以我在`GoAgent`的下載包中集成了一些證書，但可能仍然也無法保障涵蓋了所有經常訪問的網站的證書，因此您可以先將`GoAgent`客戶端在電腦上運行並訪問一些您經常需要瀏覽的SSL方式的網站，之後將certs目錄下生成的證書上傳至dd-wrt上的/opt/etc/goagent/certs目錄即可。
 
 *編譯Gevent 0.13.8*^[3]^：
@@ -82,6 +86,10 @@ $ python setup.py build && python setup.py install
 *在Python 2.7+gevent1.0rc2環境下運行最新版`GoAgent`* ：
 
 最新版本的`GoAgent`增強了翻牆能力，需要在Python 2.7+gevent1.0rc2的環境下才能更好地運行，python2.7+gevent1.0rc2環境的搭建請參看[https://maskv.com/technology/272.html 這篇部落格]，由於步驟十分繁瑣，而且那篇部落格寫得也比較詳細，因此這里就不再敘述。
+
+*透過iptables實現智能翻牆，無需手動設置代理* ：
+
+還在進一步研究中
 
 == References ==
   # [http://bbs.dualwan.cn/viewthread.php?tid=229261 Dualwan路由器使用goagent高速自動爬長城簡明教程 - 交流討論區 - Tomato DualWAN 論壇]
