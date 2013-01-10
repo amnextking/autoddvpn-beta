@@ -1,0 +1,50 @@
+== Introduction ==
+
+這份說明描述在dd-wrt、Tomato、Openwrt路由器中配置`GoAgent`實現翻牆
+
+== Details ==
+
+這份文檔以`GoAgent`客戶端版本2.0.14為例子，測試發現該版本運行良好，暫未測試高版本的運行狀況，該版本的`GoAgent`可在[http://code.google.com/p/autoddvpn-beta/downloads/list Downloads]中下載。
+
+這個功能需要開啓Optware，並安裝Python 2.6和OpenSSL，具體可參見[Optware 這份說明]。
+
+在按照此說明配置路由器客戶端之前，應確保在GAE上已經有配置好的伺服器端，GAE伺服器端的配置方法可參考[http://code.google.com/p/goagent/wiki/InstallGuide 官方說明]。另請注意教程中的2.0.14版本的客戶端未必能夠向上兼容最新版本的官方伺服器端，所以我準備了一個已經確認可以兼容這個版本的2.0.12版本的伺服器端，可以在[http://code.google.com/p/autoddvpn-beta/downloads/detail?name=goagent-server-2.0.12.tar.gz 這裡]下載。
+
+如果使用google_cn profile配置`GoAgent`客戶端的話，此方法和VPN並不衝突，可同時使用，`GoAgent`將作為一個備選方案，在VPN連不上時或需要高帶寬（如觀看Youtube視頻）時使用。
+
+=== 安裝 ===
+透過ssh或telnet登入路由器後，執行如下指令：
+{{{
+$ cd /opt/etc
+$ wget http://autoddvpn-beta.googlecode.com/files/goagent-client-2.0.14.tar.gz
+$ tar -zcvf goagent-client-2.0.14.tar.gz
+# 注：測試發現在某些版本的dd-wrt中系統自帶的tar程式存在問題，請按照Optware中的說明安裝busybox後使用/opt/bin/tar命令代替
+$ cd /opt/etc/goagent
+$ chmod +x *
+}}}
+
+=== 配置 ===
+修改proxy.ini：
+{{{
+$ vi /opt/etc/goagent/proxy.ini
+}}}
+在「appid」後填入GAE上的app id，多個app用管線（「 | 」）隔開；password後填入密碼；「[google_cn]」部分下面的hosts後填入找到的在你的地區仍能訪問的谷歌北京數據中心的IP位址，為了防止被封，我在文件中刪去了僅有的能訪問的IP位址，如果找不到北京數據中心的IP位址，請將上面的profile後面的google_cn改為google_hk
+
+=== 運行與檢視 ===
+輸入命令：
+{{{
+$ nohup python /opt/etc/goagent/proxy.py > /tmp/goagent.log &
+}}}
+之後`GoAgent`便會在系統後台運行，在路由下的電腦上將瀏覽器代理改為「路由器IP位址:8087」即可翻牆，可配合GFWlist進行智能翻牆。
+
+透過如下命令可對日誌進行檢視：
+{{{
+$ tail -f /tmp/goagent.log
+}}}
+
+=== 進階 ===
+
+== References ==
+  # [http://bbs.dualwan.cn/viewthread.php?tid=229261 Dualwan路由器使用goagent高速自動爬長城簡明教程 - 交流討論區 - Tomato DualWAN 論壇]
+  # [http://www.yonsm.net/post/645 在 3.5MB 超小空閒空間的路由器上部署 Python + GoAgent（以Tomato DualWAN WR500V 為例） - Yonsm.NET]
+  # [https://maskv.com/technology/192.html Tomato中編譯安裝Gevent | MaskV]
