@@ -42,6 +42,8 @@ $ nohup python /opt/etc/goagent/proxy.py > /tmp/goagent.log &
 $ tail -f /tmp/goagent.log
 }}}
 
+如需結束`GoAgent`運行，可通過命令「`jobs`」查找出其任務序號，就是「[]」中的數字，通常為「1」，通過命令「`fg %n`」命令（n即為前面找到的任務序號，如果是1的話命令就是「`fg %1`」）將其調回前台後，通過control+c將其結束。
+
 === 進階 ===
 
 == References ==
