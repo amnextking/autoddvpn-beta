@@ -22,7 +22,11 @@ wget http://autoddvpn-beta.googlecode.com/svn/trunk/tools/optware/optware-instal
 sh optware-install.sh
 }}}
 
+*OpenWrt路由器*：
+
 === 安裝常用的一些optware組件 ===
+註：如使用的是OpenWrt路由器，應使用opkg命令代替ipkg-opt
+
 *`BusyBox`* ：
 {{{
 $ ipkg-opt install busybox
