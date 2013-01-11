@@ -17,15 +17,28 @@ $ sh /tmp/optware-install.sh
 
 *Tomato路由器*：
 {{{
-cd /opt
-wget http://autoddvpn-beta.googlecode.com/svn/trunk/tools/optware/optware-install-tomato.sh -O - | tr -d '\r' > optware-install.sh
-sh optware-install.sh
+$ cd /opt
+$ wget http://autoddvpn-beta.googlecode.com/svn/trunk/tools/optware/optware-install-tomato.sh -O - | tr -d '\r' > optware-install.sh
+$ sh optware-install.sh
 }}}
 
-*OpenWrt路由器*：
+*`OpenWrt`路由器*^[8]^：
+
+編輯ipkg.conf：
+{{{
+$ vi /etc/ipkg.conf
+}}}
+加入「`src optware http://ipkg.nslu2-linux.org/feeds/optware/openwrt-ixp4xx/cross/unstable`」
+
+之後：
+{{{
+$ ipkg update
+$ ipkg install ipkg-opt
+}}}
+
+然後建議再將「`src optware http://ipkg.nslu2-linux.org/feeds/optware/openwrt-ixp4xx/cross/unstable`」從檔案/etc/ipkg.conf中移除，再添加到檔案/opt/bin/ipkg-opt中。
 
 === 安裝常用的一些optware組件 ===
-_註：如使用的是`OpenWrt`路由器，應使用opkg命令代替ipkg-opt_
 
 *`BusyBox`* ：
 {{{
@@ -111,3 +124,4 @@ $ ipkg-opt install sqlite
   # [http://www.mattgibson.ca/2009/11/05/fix-dd-wrt-lighttpd-error-server-c-1105-fdevent_init-failed-on-asus-wl-500/ Fix DD-WRT Lighttpd error "(server.c.1105) fdevent_init failed" on Asus WL-500 | Matt Gibson]
   # [https://oogami.name/941/ DD Wrt 路由器級VPN翻牆方案 « 小野大神 Blog]
   # [https://maskv.com/technology/192.html Tomato中編譯安裝Gevent | MaskV]
+  # [http://www.nslu2-linux.org/wiki/OpenWrt/HomePage NSLU2-Linux - OpenWrt / HomePage browse]
