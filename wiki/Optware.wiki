@@ -25,7 +25,7 @@ sh optware-install.sh
 *OpenWrt路由器*：
 
 === 安裝常用的一些optware組件 ===
-註：如使用的是OpenWrt路由器，應使用opkg命令代替ipkg-opt
+_註：如使用的是`OpenWrt`路由器，應使用opkg命令代替ipkg-opt_
 
 *`BusyBox`* ：
 {{{
