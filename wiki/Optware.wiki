@@ -90,7 +90,7 @@ $ /opt/etc/lighttpd/lighttpd.conf
 {{{
 vi /opt/etc/init.d/S80lighttpd
 }}}
-找到「`    start)`」這行，在下面加入以下代碼：
+找到「`    start)`」，在「`echo "Starting web server: $NAME"`」和「`$DAEMON $DAEMON_OPTS`」中間加入以下代碼：
 {{{
         echo "Starting web server: $NAME"
         if [ ! -d /tmp/lighttpd ]; then
