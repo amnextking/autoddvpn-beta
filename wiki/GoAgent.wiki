@@ -31,7 +31,7 @@ $ chmod +x *
 {{{
 $ vi /opt/etc/goagent/proxy.ini
 }}}
-在「appid」後填入GAE上的app id，多個app用管線（「 | 」）隔開；password後填入密碼；「[google_cn]」部分下面的hosts後填入找到的在你的地區仍能訪問的谷歌北京數據中心的IP位址，為了防止被封，我在文件中刪去了僅有的能訪問的IP位址，如果找不到北京數據中心的IP位址，請將上面的profile後面的google_cn改為google_hk
+在「appid」後填入GAE上的app id，多個app用管線（「 | 」）隔開；password後填入密碼；「[google_cn]」部分下面的hosts後填入找到的在你所在地區仍能訪問的谷歌北京數據中心的IP位址，可以在[http://smarthosts.googlecode.com/svn/trunk/hosts 這裡]查找，「203.208.*.*」的都是，填寫之前先訪問一下，如果能打開google主頁說明這個IP沒有被你所在地區封鎖，將所有能訪問的IP位址都填寫上，用管線（「 | 」）隔開（相同的IP位址只填寫一次即可）；如果所有谷歌北京數據中心的IP位址都無法訪問，請將上面的profile後面的google_cn改為google_hk
 
 === 運行與檢視 ===
 輸入命令：
