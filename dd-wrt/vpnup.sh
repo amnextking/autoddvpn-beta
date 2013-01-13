@@ -75,6 +75,11 @@ else
 	echo "$INFO OLDGW is $OLDGW" 
 fi
 
+if [ -z "$(nvram get gracevpn_enable)" ]; then
+nvram set gracevpn_enable=0
+nvram need_commit=1
+fi
+
 if [ $(nvram get gracevpn_enable) -eq 1 ]; then
 
 echo "$INFO $(date "+%d/%b/%Y:%H:%M:%S") mode: grace mode"  >> $LOG
