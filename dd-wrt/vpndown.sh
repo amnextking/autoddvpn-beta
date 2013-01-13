@@ -53,10 +53,31 @@ case $1 in
 			;;
 esac
 
+if [ $(nvram get gracevpn_enable) -eq 1 ]; then
+
+echo "$INFO $(date "+%d/%b/%Y:%H:%M:%S") mode: grace mode"  >> $LOG
+
+echo "$INFO $(date "+%d/%b/%Y:%H:%M:%S") removing the static routes" >> $LOG
+
+##### begin batch route #####
+#route -n | awk '$2 ~ /192.168.172.254/{print $1,$3}'  | while read x y
+route -n | awk '$NF ~ /tun0/{print $1,$3}' | while read x y
+do
+        echo "deleting $x $y"
+        route del -net $x netmask $y
+done
+##### end batch route #####
+
+else
+
+echo "$INFO $(date "+%d/%b/%Y:%H:%M:%S") mode: classical mode"  >> $LOG
+
 #route del -host $PPTPSRV 
 route del default gw $VPNGW
 echo "$INFO add $OLDGW back as the default gw"
 route add default gw $OLDGW
+
+fi
 
 # delete the exceptional VPN routes
 if [ $(nvram get exvpnroute_enable) -eq 1 ]; then
