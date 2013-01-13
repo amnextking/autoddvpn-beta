@@ -85,6 +85,35 @@ _如果您有興趣想要詳細了解GFW的DNS緩存污染，可以看看[GfwDns
 
 此外，您還可以選擇手動連接PPTP VPN，這樣可以解決某些dd-wrt版本的默認PPTP配置檔案存在問題，以及加入一些進階參數等。這個功能正在開發中，如有興趣請參看[ManualPPTPDev 此檔案]。
 
+*`GraceMode`*（實驗性）：
+
+對於一些VPN非常不穩定，而且主要訪問墻內網站，牆外基本上只訪問Twitter、Facebook、Youtube等網站，對國內CDN、P2P依賴較高的用戶，我修改了vpnup.sh的代碼，實驗性支持`GraceMode`，目前這一功能正在進一步測試中。
+
+首先下載GFW IP列表：
+{{{
+$ cd /jffs
+$ wget http://autoddvpn-beta.googlecode.com/svn/trunk/gfwips.lst
+}}}
+之後設置nvram的gracevpn_enable值為1：
+{{{
+$ nvram set gracevpn_enable=1
+}}}
+之後重啓路由即可
+
+更新gfwips.lst列表：
+
+由於gfwips.lst這個IP列表相比中國大陸IP列表cnips.lst變化頻率很高，因此有時在訪問某個國外網站無法訪問時可能需要手動更新gfwips.lst，首先需要下載至裝有python的環境下（如果路由器裝有python可直接下載至路由器中）：
+{{{
+wget http://code.google.com/p/autoddvpn-beta/source/browse/trunk/tools/gengfwipv4lst.py
+}}}
+（在圖形化的作業系統中，如Windows、Mac OS X，也可以直接用瀏覽器訪問上面的地址後直接另存為）
+
+之後執行：
+{{{
+$ python gengfwipv4lst.py
+}}}
+注：Mac OS X系統的python中並未集成上述腳本中需要用到的dns.resolver模塊，需要手動安裝，不然會出錯。安裝方法：先下載安裝[http://www.activestate.com/activepython/downloads# ActivePython]，之後在終端（Terminal）運行命令「`pypm install dnspython`」即可。
+
 == References ==
   # [http://code.google.com/p/autoddvpn/wiki/HOWTO HOWTO - autoddvpn - DD-WRT自動翻牆解決方案 - Google Project Hosting]
   # [http://code.google.com/p/autoddvpn/wiki/jffs jffs - autoddvpn - DD-WRT自動翻牆解決方案 - Google Project Hosting]
