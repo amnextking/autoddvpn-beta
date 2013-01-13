@@ -7,7 +7,7 @@ import re
 import math
 
 #ipv4url='http://ftp.apnic.net/apnic/dbase/data/country-ipv4.lst'
-ipv4url='http://ftp.apnic.net/apnic/stats/apnic/delegated-apnic-latest'
+#ipv4url='http://ftp.apnic.net/apnic/stats/apnic/delegated-apnic-latest'
 
 listfile=open('cnips.list','wa')
 
