@@ -10,6 +10,7 @@ LOCK='/tmp/autoddvpn.lock'
 IPTABLELOCK='/tmp/iptable.lock'
 PID=$$
 CNIPLIST='/jffs/cnips.lst'
+GFWIPLIST='/jffs/gfwips.lst'
 EXROUTEDIR='/jffs/exroute.d'
 EXVPNROUTEDIR='/jffs/exvpnroute.d'
 INFO="[INFO#${PID}]"
@@ -74,6 +75,32 @@ else
 	echo "$INFO OLDGW is $OLDGW" 
 fi
 
+if [ $(nvram get gracevpn_enable) -eq 1 ]; then
+
+echo "$INFO $(date "+%d/%b/%Y:%H:%M:%S") mode: grace mode"  >> $LOG
+
+echo "$INFO $(date "+%d/%b/%Y:%H:%M:%S") adding the static routes, this may take a while." >> $LOG
+
+# add gfw routes
+if [ ! -f $GFWIPLIST ]; then
+	echo "$INFO $(date "+%d/%b/%Y:%H:%M:%S") missing $GFWIPLIST, wget it now."  >> $LOG
+	wget http://autoddvpn-beta.googlecode.com/svn/trunk/gfwips.lst -O $GFWIPLIST 
+fi
+for i in $(grep -v ^# $GFWIPLIST)
+do
+# check the item is a subnet or a single ip address
+echo $i | grep "/" > /dev/null
+if [ $? -eq 0 ]; then
+route add -net $i gw $VPNGW
+else
+route add $i gw $VPNGW
+fi
+done 
+
+else
+
+echo "$INFO $(date "+%d/%b/%Y:%H:%M:%S") mode: classical mode"  >> $LOG
+
 echo "$INFO $(date "+%d/%b/%Y:%H:%M:%S") make $VPNSRV gw $OLDGW"  >> $LOG
 route add -host $VPNSRV gw $OLDGW
 echo "$INFO $(date "+%d/%b/%Y:%H:%M:%S") delete default gw $OLDGW"  >> $LOG
@@ -99,6 +126,8 @@ for i in $(grep -v ^# $CNIPLIST)
 do
 route add -net $i gw $OLDGW
 done 
+
+fi
 
 # prepare for the exceptional routes, see http://code.google.com/p/autoddvpn/issues/detail?id=7
 echo "$INFO $(date "+%d/%b/%Y:%H:%M:%S") preparing the exceptional routes" >> $LOG
