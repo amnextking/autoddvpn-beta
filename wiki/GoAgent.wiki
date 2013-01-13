@@ -48,6 +48,20 @@ $ tail -f /tmp/goagent.log
 如需結束`GoAgent`運行，可通過命令「`jobs`」查找出其任務序號，就是「[]」中的數字，通常為「1」，通過命令「`fg %n`」命令（n即為前面找到的任務序號，如果是1的話命令就是「`fg %1`」）將其調回前台後，通過control+c將其結束。
 
 === 進階 ===
+*設置swap虛擬內存* ：
+
+經過測試發現，`GoAgent`非常吃路由內存，運行時很容易導致路由器死機，因此建議最好設置一些swap虛擬內存，執行如下命令（需安裝busybox，可參看[Optware 這份說明]）：
+{{{
+dd if=/dev/zero of=/opt/swapfile bs=1024 count=131072
+/opt/bin/busybox mkswap /opt/swapfile
+/opt/bin/busybox swapon /opt/swapfile
+}}}
+_註：其中131072為虛擬內存的大小，單位是KB，必須為1024的整數倍，131072就是128MB*1024，請根據路由器實際情況設置，一般為路由器實際內存的2倍。_
+
+之後設置開機自動加載虛擬內存：
+
+將「`/opt/bin/busybox swapon /opt/swapfile`」保存在開機命令中即可
+
 *添加更多證書* ：
 
 經過測試發現，在dd-wrt上運行`GoAgent`透過SSL方式訪問網站時，如果cert目錄內沒有相應的證書，新生成證書很慢，而且容易出錯，所以我在`GoAgent`的下載包中集成了一些證書，但可能仍然也無法保障涵蓋了所有經常訪問的網站的證書，因此您可以先將`GoAgent`客戶端在電腦上運行並訪問一些您經常需要瀏覽的SSL方式的網站，之後將certs目錄下生成的證書上傳至dd-wrt上的/opt/etc/goagent/certs目錄即可。
