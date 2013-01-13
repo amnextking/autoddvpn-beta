@@ -134,6 +134,8 @@ done
 
 fi
 
+echo "$INFO static routes added"
+
 # prepare for the exceptional routes, see http://code.google.com/p/autoddvpn/issues/detail?id=7
 echo "$INFO $(date "+%d/%b/%Y:%H:%M:%S") preparing the exceptional routes" >> $LOG
 if [ $(nvram get exroute_enable) -eq 1 ]; then
@@ -229,12 +231,22 @@ fi
 #    break
 #  fi
 #done
+
 GW=$(route -n | grep ^0.0.0.0 | awk '{print $2}')
 if [ "$GW" == "$OLDGW" ]; then
-  echo "$ERROR $(date "+%d/%b/%Y:%H:%M:%S") still got the old gw, it may because vpn was disconnected." >> $LOG
-  echo "$INFO $(date "+%d/%b/%Y:%H:%M:%S") vpnup.sh ended" >> $LOG
+  if [ $(nvram get gracevpn_enable) -eq 1 ]; then
+    echo "$DEBUG GOOD"
+    echo "$INFO $(date "+%d/%b/%Y:%H:%M:%S") vpnup.sh ended" >> $LOG
+    echo "$INFO $(date "+%d/%b/%Y:%H:%M:%S") restarting DNSMasq service" >> $LOG
+    stopservice dnsmasq
+    startservice dnsmasq
+    echo "$INFO $(date "+%d/%b/%Y:%H:%M:%S") restarting DNS" >> $LOG
+    restart_dns
+  else
+    echo "$ERROR $(date "+%d/%b/%Y:%H:%M:%S") still got the old gw, it may because vpn was disconnected." >> $LOG
+    echo "$INFO $(date "+%d/%b/%Y:%H:%M:%S") vpnup.sh ended" >> $LOG
+  fi
 else
-  echo "$INFO static routes added"
   echo "$INFO $(date "+%d/%b/%Y:%H:%M:%S") vpnup.sh ended" >> $LOG
   echo "$INFO $(date "+%d/%b/%Y:%H:%M:%S") restarting DNSMasq service" >> $LOG
   stopservice dnsmasq
