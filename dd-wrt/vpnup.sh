@@ -88,10 +88,10 @@ echo "$INFO $(date "+%d/%b/%Y:%H:%M:%S") adding the static routes, this may take
 
 # add gfw routes
 if [ ! -f $GFWIPLIST ]; then
-  route add -net 74.125.0.0/16 gw $VPNGW
+	route add -net 74.125.0.0/16 gw $VPNGW
 	echo "$INFO $(date "+%d/%b/%Y:%H:%M:%S") missing $GFWIPLIST, wget it now."  >> $LOG
 	wget http://autoddvpn-beta.googlecode.com/svn/trunk/gfwips.lst -O $GFWIPLIST
-  route del -net 74.125.0.0/16 gw $VPNGW
+	route del -net 74.125.0.0/16 gw $VPNGW
 fi
 for i in $(grep -v ^# $GFWIPLIST)
 do
