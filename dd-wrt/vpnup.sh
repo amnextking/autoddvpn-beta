@@ -7,7 +7,7 @@ export PATH="/bin:/sbin:/usr/sbin:/usr/bin"
 
 LOG='/tmp/autoddvpn.log'
 LOCK='/tmp/autoddvpn.lock'
-IPTABLELOCK='/tmp/iptable.lock'
+ROUTESLOCK='/tmp/staticroutes.lock'
 PID=$$
 CNIPLIST='/jffs/cnips.lst'
 GFWIPLIST='/jffs/gfwips.lst'
@@ -88,8 +88,10 @@ echo "$INFO $(date "+%d/%b/%Y:%H:%M:%S") adding the static routes, this may take
 
 # add gfw routes
 if [ ! -f $GFWIPLIST ]; then
+  route add -net 74.125.0.0/16 gw $VPNGW
 	echo "$INFO $(date "+%d/%b/%Y:%H:%M:%S") missing $GFWIPLIST, wget it now."  >> $LOG
-	wget http://autoddvpn-beta.googlecode.com/svn/trunk/gfwips.lst -O $GFWIPLIST 
+	wget http://autoddvpn-beta.googlecode.com/svn/trunk/gfwips.lst -O $GFWIPLIST
+  route del -net 74.125.0.0/16 gw $VPNGW
 fi
 for i in $(grep -v ^# $GFWIPLIST)
 do
@@ -114,23 +116,25 @@ route del default gw $OLDGW
 echo "$INFO $(date "+%d/%b/%Y:%H:%M:%S") add default gw $VPNGW"  >> $LOG
 route add default gw $VPNGW
 
-if [ -f $IPTABLELOCK ]; then
+if [ -f $ROUTESLOCK ]; then
   echo "$INFO $(date "+%d/%b/%Y:%H:%M:%S") static routes exists, skip." >> $LOG
 else
-# create the lock
-echo "$INFO $(date "+%d/%b/%Y:%H:%M:%S") vpnup" >> $IPTABLELOCK
 
 echo "$INFO $(date "+%d/%b/%Y:%H:%M:%S") adding the static routes, this may take a while." >> $LOG
 
 # add cn routes
 if [ ! -f $CNIPLIST ]; then
 	echo "$INFO $(date "+%d/%b/%Y:%H:%M:%S") missing $CNIPLIST, wget it now."  >> $LOG
-	wget http://autoddvpn-beta.googlecode.com/svn/trunk/cnips.lst -O $CNIPLIST 
+	wget http://autoddvpn-beta.googlecode.com/svn/trunk/cnips.lst -O $CNIPLIST
 fi
+
+# create the lock
+echo "$INFO $(date "+%d/%b/%Y:%H:%M:%S") adding routes" >> $ROUTESLOCK
+
 for i in $(grep -v ^# $CNIPLIST)
 do
 route add -net $i gw $OLDGW
-done 
+done
 
 fi
 
@@ -161,9 +165,9 @@ if [ $(nvram get exroute_enable) -eq 1 ]; then
 			# check the item is a subnet or a single ip address
 			echo $r | grep "/" > /dev/null
 			if [ $? -eq 0 ]; then
-				route add -net $r gw $(nvram get wan_gateway) 
+				route add -net $r gw $(nvram get wan_gateway)
 			else
-				route add $r gw $(nvram get wan_gateway) 
+				route add $r gw $(nvram get wan_gateway)
 			fi
 		done 
 	done
@@ -176,9 +180,9 @@ if [ $(nvram get exroute_enable) -eq 1 ]; then
 		# check the item is a subnet or a single ip address
 		echo $i | grep "/" > /dev/null
 		if [ $? -eq 0 ]; then
-			route add -net $i gw $(nvram get wan_gateway) 
+			route add -net $i gw $(nvram get wan_gateway)
 		else
-			route add $i gw $(nvram get wan_gateway) 
+			route add $i gw $(nvram get wan_gateway)
 		fi
 	done
 else
