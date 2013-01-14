@@ -59,14 +59,12 @@ echo "$INFO $(date "+%d/%b/%Y:%H:%M:%S") mode: grace mode"  >> $LOG
 
 echo "$INFO $(date "+%d/%b/%Y:%H:%M:%S") removing the static routes" >> $LOG
 
-##### begin batch route #####
 #route -n | awk '$2 ~ /192.168.172.254/{print $1,$3}'  | while read x y
 route -n | awk '$NF ~ /tun0/{print $1,$3}' | while read x y
 do
         echo "deleting $x $y"
         route del -net $x netmask $y
 done
-##### end batch route #####
 
 else
 
