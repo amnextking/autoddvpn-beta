@@ -31,11 +31,11 @@ done
 
 if [ -f $LOCK ]; then
    echo "$ERROR $(date "+%d/%b/%Y:%H:%M:%S") still got $LOCK , I'm aborted. Fix me." >> $LOG
-   exit 0
+   exit 1
 fi
-#else
-#	echo "$INFO $(date "+%d/%b/%Y:%H:%M:%S") $LOCK was released, let's continue." >> $LOG
-#fi
+else
+   echo "$INFO $(date "+%d/%b/%Y:%H:%M:%S") $LOCK was released, let's continue." >> $LOG
+fi
 
 # create the lock
 echo "$INFO $(date "+%d/%b/%Y:%H:%M:%S") vpnup" >> $LOCK
@@ -93,6 +93,13 @@ if [ ! -f $GFWIPLIST ]; then
 	wget http://autoddvpn-beta.googlecode.com/svn/trunk/gfwips.lst -O $GFWIPLIST
 	route del -net 74.125.0.0/16 gw $VPNGW
 fi
+if [ ! -f $GFWIPLIST ]; then
+	echo "$ERROR $(date "+%d/%b/%Y:%H:%M:%S") fail to fetch $GFWIPLIST, please fetch it manually."  >> $LOG
+	echo "$INFO $(date "+%d/%b/%Y:%H:%M:%S") vpnup.sh ended" >> $LOG
+	# release the lock
+	rm -f $LOCK
+	exit 1
+fi
 for i in $(grep -v ^# $GFWIPLIST)
 do
 # check the item is a subnet or a single ip address
@@ -126,6 +133,13 @@ echo "$INFO $(date "+%d/%b/%Y:%H:%M:%S") adding the static routes, this may take
 if [ ! -f $CNIPLIST ]; then
 	echo "$INFO $(date "+%d/%b/%Y:%H:%M:%S") missing $CNIPLIST, wget it now."  >> $LOG
 	wget http://autoddvpn-beta.googlecode.com/svn/trunk/cnips.lst -O $CNIPLIST
+fi
+if [ ! -f $CNIPLIST ]; then
+	echo "$ERROR $(date "+%d/%b/%Y:%H:%M:%S") fail to fetch $CNIPLIST, please fetch it manually."  >> $LOG
+	echo "$INFO $(date "+%d/%b/%Y:%H:%M:%S") vpnup.sh ended" >> $LOG
+	# release the lock
+	rm -f $LOCK
+	exit 1
 fi
 
 # create the lock
