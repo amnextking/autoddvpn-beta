@@ -8,10 +8,15 @@ VPNLOG='/tmp/autoddvpn.log'
 #CRONJOBS="* * * * * root /bin/sh /tmp/check.sh >> /tmp/last_check.log"
 PID=$$
 INFO="[INFO#${PID}]"
+ERROR="[ERROR#${PID}]"
 DEBUG="[DEBUG#${PID}]"
 IPUP="/tmp/pptpd_client/ip-up"
 IPDOWN="/tmp/pptpd_client/ip-down"
 
+if [ "$(nvram get pptpd_client_enable)" = "0" ]; then
+  echo "$INFO $(date "+%d/%b/%Y:%H:%M:%S") PPTP not enabled, or using manual mode" >> $VPNLOG
+  exit 0
+fi
 
 echo "$INFO $(date "+%d/%b/%Y:%H:%M:%S") log starts" >> $VPNLOG
 echo "$INFO $(date "+%d/%b/%Y:%H:%M:%S") pptp+jffs mode" >> $VPNLOG
@@ -30,14 +35,16 @@ do
 	fi
 done
 
+if [ ! -e $IPUP ]; then
+  echo "$ERROR $(date "+%d/%b/%Y:%H:%M:%S") $IPUP still not exists, something goes wrong." >> $VPNLOG
+  exit 1
+fi
+
 echo "$INFO $(date "+%d/%b/%Y:%H:%M:%S") modifying $IPDOWN" >> $VPNLOG
 if [ -e $IPDOWN ]; then
 	sed -ie 's#exit 0#/jffs/pptp/vpndown.sh pptp\nexit 0#g' $IPDOWN
 	echo "$INFO $(date "+%d/%b/%Y:%H:%M:%S") $IPDOWN modified" >> $VPNLOG
+	echo "$INFO $(date "+%d/%b/%Y:%H:%M:%S") ALL DONE. Let's wait for VPN being connected." >> $VPNLOG
 else
-	echo "$IPDOWN not exists" >> $VPNLOG
+	echo "$ERROR $(date "+%d/%b/%Y:%H:%M:%S") $IPDOWN not exists, something goes wrong." >> $VPNLOG
 fi
-	
-echo "$INFO $(date "+%d/%b/%Y:%H:%M:%S") ALL DONE. Let's wait for VPN being connected." >> $VPNLOG
-
-
