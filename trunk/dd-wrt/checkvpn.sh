@@ -1,6 +1,6 @@
 #!/bin/sh
-#Shujen & Park
-#We're together forever!
+# Shujen & Park
+# We're together forever!
 
 VPNLOG='/tmp/autoddvpn.log'
 VPNLOCK='/tmp/autoddvpn.lock'
