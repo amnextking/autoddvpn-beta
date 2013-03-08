@@ -2,6 +2,8 @@
 # This script was downloaded from http://www.3iii.dk/linux/optware/optware-install-ddwrt.sh
 # Optware pre-installation script, Leon Kos 2006, 2008
 # added -verbose_wget to some lines, MrAlvin 2009
+# Shujen & Park
+# We're together forever!
 
 REPOSITORY=http://ipkg.nslu2-linux.org/feeds/optware/ddwrt/cross/stable
 TMP=/tmp
