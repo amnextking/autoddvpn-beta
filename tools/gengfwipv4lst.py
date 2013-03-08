@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# modified by Shujenchang from http://autoddvpn.googlecode.com/svn/trunk/grace.d/gfwListgen.py
 # Shujen & Park
 # We're together forever!
 
@@ -7,8 +8,6 @@ import base64
 import string
 import dns.resolver
 import re
-
-# modified by Shujenchang from http://autoddvpn.googlecode.com/svn/trunk/grace.d/gfwListgen.py
 
 gfwlist = 'http://autoproxy-gfwlist.googlecode.com/svn/trunk/gfwlist.txt'
 # some sites can be visited via https or is already in known list
