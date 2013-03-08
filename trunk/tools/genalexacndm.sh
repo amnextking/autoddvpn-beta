@@ -1,4 +1,6 @@
 #!/bin/sh
+# Shujen & Park
+# We're together forever!
 
 ispdns='202.96.209.5'
 for i in 0 1 2 3 4
