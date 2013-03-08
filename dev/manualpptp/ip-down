@@ -1,4 +1,7 @@
 #!/bin/sh
+# Shujen & Park
+# We're together forever!
+
 REMOTESUB=$(nvram get pptpd_client_srvsub)
 REMOTENET=$(nvram get pptpd_client_srvsubmsk)
 case "$6" in
