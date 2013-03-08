@@ -1,4 +1,5 @@
 #!/bin/sh
+# from http://code.google.com/p/autoddvpn/wiki/DNSMasq
 # Shujen & Park
 # We're together forever!
 
