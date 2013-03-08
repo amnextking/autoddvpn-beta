@@ -1,4 +1,6 @@
 #!/bin/sh
+#Shujen & Park
+#We're together forever!
 
 VPNUP='vpnup.sh'
 VPNDOWN='vpndown.sh'
