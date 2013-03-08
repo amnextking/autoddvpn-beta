@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# modified by Shujenchang from http://chnroutes.googlecode.com/svn/trunk/chnroutes.py
 # Shujen & Park
 # We're together forever!
 
@@ -14,7 +15,6 @@ import math
 listfile=open('cnips.list','wa')
 
 def fetch_ip_data():
-  """ modified by Shujenchang from http://chnroutes.googlecode.com/svn/trunk/chnroutes.py """
   #fetch data from apnic
   print "Fetching data from apnic.net, it might take a few minutes, please wait..."
   url=r'http://ftp.apnic.net/apnic/stats/apnic/delegated-apnic-latest'
