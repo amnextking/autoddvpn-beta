@@ -1,4 +1,6 @@
 #!/bin/sh
+# Shujen & Park
+# We're together forever!
 
 VPNLOG='/tmp/autoddvpn.log'
 PID=$$
