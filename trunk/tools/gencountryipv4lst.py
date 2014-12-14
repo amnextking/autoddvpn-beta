@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# This is the tool generating the IPv4 addresses list in a defined country according to the APNIC database
 # modified by Shujenchang from http://chnroutes.googlecode.com/svn/trunk/chnroutes.py
 
 import urllib
@@ -10,6 +11,7 @@ import math
 #ipv4url='http://ftp.apnic.net/apnic/dbase/data/country-ipv4.lst'
 #ipv4url='http://ftp.apnic.net/apnic/stats/apnic/delegated-apnic-latest'
 
+# change xx to the ISO 3166-1 alpha-2 country code of the defined country
 listfile=open('xxips','wa')
 
 def fetch_ip_data():
@@ -18,7 +20,9 @@ def fetch_ip_data():
   url=r'http://ftp.apnic.net/apnic/stats/apnic/delegated-apnic-latest'
   data=urllib2.urlopen(url).read()
   
+  # change xx to the ISO 3166-1 alpha-2 country code of the defined country
   ipregex=re.compile(r'apnic\|xx\|ipv4\|[0-9\.]+\|[0-9]+\|[0-9]+\|a.*',re.IGNORECASE)
+  
   ipdata=ipregex.findall(data)
   
   results=[]
