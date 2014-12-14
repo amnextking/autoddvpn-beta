@@ -1,7 +1,5 @@
 #!/bin/sh
 # from http://code.google.com/p/autoddvpn/wiki/DNSMasq
-# Shujen & Park
-# We're together forever!
 
 ispdns='202.96.209.5'
 for i in 0 1 2 3 4
