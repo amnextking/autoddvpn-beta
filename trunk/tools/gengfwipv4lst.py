@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# This is the tool generating the GFW-polluted IPv4 addresses list according to the gfwlist
 # modified by Shujenchang from http://autoddvpn.googlecode.com/svn/trunk/grace.d/gfwListgen.py
 
 import urllib
