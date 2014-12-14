@@ -1,4 +1,5 @@
 #!/bin/sh
+# This is the tool installing Optware on dd-wrt routers
 # This script was downloaded from http://www.3iii.dk/linux/optware/optware-install-ddwrt.sh
 # Optware pre-installation script, Leon Kos 2006, 2008
 # added -verbose_wget to some lines, MrAlvin 2009
