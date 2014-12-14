@@ -1,4 +1,5 @@
 #!/bin/sh
+# This is the script running after PPTP VPN is connected for dd-wrt router using PPTP VPN automatic connection mode
 # This script is modified by Shujenchang from http://autoddvpn.googlecode.com/svn/trunk/vpnup.sh
 
 set -x
