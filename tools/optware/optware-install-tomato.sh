@@ -1,4 +1,5 @@
 #!/bin/sh
+# This is the tool installing Optware on Tomato routers
 # This script was downloaded from http://bbs.dualwan.cn/downloads/optware-install.sh
 # Optware pre-installation script, Leon Kos 2006
 
