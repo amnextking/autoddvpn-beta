@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# This is the tool generating the IPv4 addresses list in China according to the APNIC database
 # modified by Shujenchang from http://chnroutes.googlecode.com/svn/trunk/chnroutes.py
 
 import urllib
