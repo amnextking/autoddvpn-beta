@@ -1,7 +1,5 @@
 #!/usr/bin/env python
 # modified by Shujenchang from http://autoddvpn.googlecode.com/svn/trunk/grace.d/gfwListgen.py
-# Shujen & Park
-# We're together forever!
 
 import urllib
 import base64
