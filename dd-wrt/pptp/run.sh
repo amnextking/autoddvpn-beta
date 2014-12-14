@@ -1,7 +1,5 @@
 #!/bin/sh
 # This script is modified by Shujenchang from http://autoddvpn.googlecode.com/svn/trunk/run.sh
-# Shujen & Park
-# We're together forever!
 
 VPNUP='vpnup.sh'
 VPNDOWN='vpndown.sh'
