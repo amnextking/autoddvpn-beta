@@ -1,7 +1,5 @@
 #!/bin/sh
 # This script is modified by Shujenchang from http://autoddvpn.googlecode.com/svn/trunk/vpnup.sh
-# Shujen & Park
-# We're together forever!
 
 set -x
 export PATH="/bin:/sbin:/usr/sbin:/usr/bin"
