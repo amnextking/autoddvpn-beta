@@ -1,7 +1,5 @@
 #!/usr/bin/env python
 # modified by Shujenchang from http://chnroutes.googlecode.com/svn/trunk/chnroutes.py
-# Shujen & Park
-# We're together forever!
 
 import urllib
 import urllib2
