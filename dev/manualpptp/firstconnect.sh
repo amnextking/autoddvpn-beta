@@ -1,4 +1,5 @@
 #!/bin/sh
+# This is the script using for the initial PPTP VPN manual connection for dd-wrt router
 
 VPNLOG='/tmp/autoddvpn.log'
 PID=$$
