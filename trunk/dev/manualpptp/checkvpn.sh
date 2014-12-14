@@ -1,4 +1,5 @@
 #!/bin/sh
+# This is the VPN connection checking script for dd-wrt router using PPTP VPN manual connection mode
 
 VPNLOG='/tmp/autoddvpn.log'
 VPNLOCK='/tmp/autoddvpn.lock'
